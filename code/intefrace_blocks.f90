@@ -1,17 +1,3 @@
----
-title: "Interface Blocks"
-teaching: 10
-exercises: 0
-questions:
-- "What is an interface block?"
-- "How can one be used to create a constructor for a derived type?"
-objectives:
-- "How do you create an interface block."
-keypoints:
-- "An interface block can act as either a block of definitions of your procedures (explicit interface) or as a means of associating different procedures with one common name (generic interface)."
----
-
-~~~
 module m_vector
   implicit none
   
@@ -55,12 +41,3 @@ program main
   print*, "numbers_some%elements(1)=",numbers_some%elements(1)
   
 end program
-~~~
-{: .fortran}
-
-This example uses what is called a generic interface which allows you to map a number of procedures to one name. The specific procedure is chosen based on the supplied arguments. Therefore each procedure included in the generic interface must be distinguishable by it number and type of arguments.
-
-The way this interface has been used to create a new object of a given derived type is pattern often reffered to as a constructor in object oriented programming languages.
-
-{% include links.md %}
-
