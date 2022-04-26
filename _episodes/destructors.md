@@ -1,13 +1,13 @@
 ---
-title: "Derived Types"
+title: "Destructors"
 teaching: 10
 exercises: 0
 questions:
-- "What is a derived type?"
+- "What is a destructor?"
 objectives:
-- "How to you make a derived type."
+- "How do you create a destructor."
 keypoints:
-- "A derived type allows you to package together a number of basic types that can then be thought of collectively as one new derived type."
+- "A destructor is used to perform clean up when an object goes out of scope."
 ---
 
 ~~~
@@ -17,6 +17,8 @@ module m_shape
   type t_shape
     integer:: num_sides
   end type
+  
+  !TODO: add some kind of basic interface
   
 end module
 

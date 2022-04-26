@@ -1,6 +1,6 @@
 ---
 title: "Modules"
-teaching: 0
+teaching: 10
 exercises: 0
 questions:
 - "What are modules?"

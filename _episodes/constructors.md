@@ -1,13 +1,13 @@
 ---
-title: "Derived Types"
+title: "Constructors"
 teaching: 10
 exercises: 0
 questions:
-- "What is a derived type?"
+- "What is a constructor?"
 objectives:
-- "How to you make a derived type."
+- "How do you create a constructor."
 keypoints:
-- "A derived type allows you to package together a number of basic types that can then be thought of collectively as one new derived type."
+- "A constructor is used to initialize a derive type object."
 ---
 
 ~~~
@@ -17,6 +17,8 @@ module m_shape
   type t_shape
     integer:: num_sides
   end type
+  
+  !TODO: add some kind of basic interface
   
 end module
 

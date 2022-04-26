@@ -119,3 +119,7 @@ episode_order:
   - derived_types
   - interfaces
   - type_bound_procedures
+  - constructors
+  - destructors
+  - type_extension
+  

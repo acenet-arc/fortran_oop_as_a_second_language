@@ -1,6 +1,6 @@
 ---
 title: "Interface Blocks"
-teaching: 0
+teaching: 10
 exercises: 0
 questions:
 - "What is an interface block?"

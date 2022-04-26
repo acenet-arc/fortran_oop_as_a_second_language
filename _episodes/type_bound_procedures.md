@@ -1,6 +1,6 @@
 ---
 title: "Type Bound Procedures"
-teaching: 0
+teaching: 10
 exercises: 0
 questions:
 - "What is a type bound procedure?"
