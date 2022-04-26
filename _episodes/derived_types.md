@@ -11,6 +11,8 @@ keypoints:
 ---
 
 A vector derived type.
+
+<div class="gitfile" markdown="1">
 ~~~
 module m_vector
   implicit none
@@ -36,9 +38,12 @@ program main
 end program
 ~~~
 {: .fortran}
+[derived_types.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/derived_types.f90)
+</div>
 
 
 Write some functions to create vectors as this is something we will want to do commonly.
+<div class="gitfile" markdown="1">
 ~~~
 module m_vector
   implicit none
@@ -80,5 +85,8 @@ program main
 end program
 ~~~
 {: .fortran}
+[derived_types_init.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/derived_types_init.f90)
+</div>
+
 {% include links.md %}
 

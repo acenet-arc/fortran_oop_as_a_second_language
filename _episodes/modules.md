@@ -10,6 +10,7 @@ keypoints:
 - "Modules are used to package variables, types, and procedures together."
 ---
 
+<div class="gitfile" markdown="1">
 ~~~
 module m_common
   implicit none
@@ -37,6 +38,8 @@ program main
 end program
 ~~~
 {: .fortran}
+[modules.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/modules.f90)
+</div>
 
 {% include links.md %}
 

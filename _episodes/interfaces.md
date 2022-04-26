@@ -11,6 +11,7 @@ keypoints:
 - "An interface block can act as either a block of definitions of your procedures (explicit interface) or as a means of associating different procedures with one common name (generic interface)."
 ---
 
+<div class="gitfile" markdown="1">
 ~~~
 module m_vector
   implicit none
@@ -57,6 +58,8 @@ program main
 end program
 ~~~
 {: .fortran}
+[intefrace_blocks.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/intefrace_blocks.f90)
+</div>
 
 This example uses what is called a generic interface which allows you to map a number of procedures to one name. The specific procedure is chosen based on the supplied arguments. Therefore each procedure included in the generic interface must be distinguishable by it number and type of arguments.
 

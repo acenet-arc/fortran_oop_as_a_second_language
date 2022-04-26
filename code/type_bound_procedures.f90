@@ -1,17 +1,3 @@
----
-title: "Destructors"
-teaching: 10
-exercises: 0
-questions:
-- "What is a destructor?"
-objectives:
-- "How do you create a destructor."
-keypoints:
-- "A destructor is used to perform clean up when an object goes out of scope."
----
-
-<div class="gitfile" markdown="1">
-~~~
 module m_vector
   implicit none
   
@@ -22,7 +8,6 @@ module m_vector
     contains
     
     procedure:: display
-    final:: destructor
     
   end type
   
@@ -32,16 +17,6 @@ module m_vector
   end interface
   
   contains
-  
-  subroutine destructor(self)
-    implicit none
-    type(t_vector):: self
-    
-    print*, "t_vector destruction called"
-    if (allocated(self%elements)) then
-      deallocate(self%elements)
-    endif
-  end subroutine
   
   subroutine display(vec)
     implicit none
@@ -70,13 +45,6 @@ module m_vector
   
 end module
 
-subroutine make_vector_in_different_scope()
-  use m_vector
-  type(t_vector) test
-  
-  test=t_vector(4)
-end subroutine
-
 program main
   use m_vector
   implicit none
@@ -90,13 +58,4 @@ program main
   numbers_some%elements(1)=2
   call numbers_some%display()
   
-  call make_vector_in_different_scope()
-  
 end program
-~~~
-{: .fortran}
-[destructors.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/destructors.f90)
-</div>
-
-{% include links.md %}
-
