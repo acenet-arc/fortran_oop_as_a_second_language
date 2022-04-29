@@ -117,8 +117,9 @@ episode_order:
   - introduction
   - modules
   - derived_types
+  - extending_types
   - interfaces
   - type_bound_procedures
   - destructors
-  - type_extension
+#  - polymorphism
   

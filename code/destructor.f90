@@ -8,7 +8,7 @@ module m_vector
     contains
     
     procedure:: display
-    final:: destructor
+    final:: destructor_vector
     
   end type
   
@@ -17,13 +17,33 @@ module m_vector
     procedure:: create_sized_vector
   end interface
   
+  type,extends(t_vector):: t_vector_3
+    
+    contains
+    
+    final:: destructor_vector_3
+    
+  end type
+  
+  interface t_vector_3
+    procedure:: create_size_3_vector
+  end interface
+  
   contains
   
-  subroutine destructor(self)
+  subroutine destructor_vector(self)
     implicit none
     type(t_vector):: self
     
-    print*, "t_vector destruction called"
+    if (allocated(self%elements)) then
+      deallocate(self%elements)
+    endif
+  end subroutine
+  
+  subroutine destructor_vector_3(self)
+    implicit none
+    type(t_vector_3):: self
+    
     if (allocated(self%elements)) then
       deallocate(self%elements)
     endif
@@ -34,9 +54,14 @@ module m_vector
     class(t_vector),intent(in):: vec
     integer:: i
     
-    print*, "t_vector:"
-    print*, "  num_elements=",vec%num_elements
-    print*, "  elements="
+    select type (vec)
+      class is (t_vector)
+        print*, "t_vector:"
+      class is (t_vector_3)
+        print*, "t_vector_3:"
+    end select
+    print*, " num_elements=",vec%num_elements
+    print*, " elements="
     do i=1,vec%num_elements
       print*, "  ",vec%elements(i)
     end do
@@ -54,20 +79,19 @@ module m_vector
     allocate(create_sized_vector%elements(vec_size))
   end function
   
-end module
-
-subroutine make_vector_in_different_scope()
-  use m_vector
-  type(t_vector) test
+  type(t_vector_3) function create_size_3_vector()
+    implicit none
+    create_size_3_vector%num_elements=3
+    allocate(create_size_3_vector%elements(3))
+  end function
   
-  test=t_vector(4)
-end subroutine
+end module
 
 program main
   use m_vector
   implicit none
-  integer:: temp
   type(t_vector) numbers_none,numbers_some
+  type(t_vector_3) location
   
   numbers_none=t_vector()
   call numbers_none%display()
@@ -76,6 +100,8 @@ program main
   numbers_some%elements(1)=2
   call numbers_some%display()
   
-  call make_vector_in_different_scope()
+  location=t_vector_3()
+  location%elements(1)=1.0
+  call location%display()
   
 end program
