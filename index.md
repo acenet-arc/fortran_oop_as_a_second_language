@@ -3,7 +3,6 @@ layout: lesson
 root: .  # Is the only page that doesn't follow the pattern /:path/index.html
 permalink: index.html  # Is the only page that doesn't follow the pattern /:path/index.html
 ---
-FIXME: home page introduction
 
 <!-- this is an html comment -->
 
@@ -11,7 +10,7 @@ FIXME: home page introduction
 
 > ## Prerequisites
 >
-> FIXME
+> First half of this course which introduces the fundamental, non-object oriented programming language constructs and syntax.
 {: .prereq}
 
 {% include links.md %}

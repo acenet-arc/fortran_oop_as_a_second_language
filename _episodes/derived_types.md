@@ -5,12 +5,35 @@ exercises: 0
 questions:
 - "What is a derived type?"
 objectives:
-- "How to you make a derived type."
+- "Know how to create a derive type."
+- "Know how to access members of a derive type."
 keypoints:
 - "A derived type allows you to package together a number of basic types that can then be thought of collectively as one new derived type."
 ---
 
-A vector derived type.
+While modules allow you to package variables together in such a way that you can directly refer to those variables, as we saw previously, derived types allow you to package together variables in such a way as to form a new compound variable. With this new compound variable you can refer to it as a group rather than only by the individual components.
+
+To create a new derived type you use the following format.
+~~~
+type <type name>
+  <member variable declarations>
+end type
+~~~
+{: .fortran}
+
+You can then declare new variables of this derived type as shown.
+~~~
+type(<type name>):: my_variable
+~~~
+{: .fortran}
+Finally individual elements or members of a derived type variable, or **object**, can be accessed using the `%` operator.
+~~~
+my_variable%member1
+~~~
+{: .fortran}
+The member variable, `member1`, is declared as part of the derived type.
+
+A full example of creating a new derived type, `t_vector`, which holds an array of `real` values is shown below.
 
 <div class="gitfile" markdown="1">
 ~~~
@@ -41,8 +64,20 @@ end program
 [derived_types.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/derived_types.f90)
 </div>
 
+~~~
+$ gfortran ./derived_types.f90 -o derived_types
+$ ./derived_types
+~~~
+{: .bash}
 
-Write some functions to create vectors as this is something we will want to do commonly.
+~~~
+ numbers%num_elements=           5
+ numbers%elements(1)=   2.00000000
+~~~
+{: .output}
+
+
+Creating new vectors is a pretty common thing that we want to do. Lets add some functions to create vectors to reduce the amount of repeated code. Lets create one to make empty vectors, `create_empty_vector` and one to create a vector of a given size allocating the required memory to hold all the elements of the vector, `create_sized_vector`.
 <div class="gitfile" markdown="1">
 ~~~
 module m_vector

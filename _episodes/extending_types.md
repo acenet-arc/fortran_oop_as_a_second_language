@@ -10,14 +10,28 @@ keypoints:
 - "Type extension allows you to build upon an existing derived type to create a new derived type."
 ---
 
+It is pretty common use vectors that represent positions in 3D space, lets create a new derive type which always has only three components. However, it would be really cool if we could reuse our more general vector type to represent one of these specific 3 component vectors. You can do this be using type extension. Type extension allows you to add new members (or not) to an existing type to create a new derived type.
+
+To create a new extended derived type has the following format.
+~~~
+type,extends(<parent type name>):: <child type name>
+  <member variable declarations>
+end type
+~~~
+{: .fortran}
+Here `<parent type name>` is the name of a derived type to be extended, and `<child type name>` is the name of the new derived type created by extending the parent derived type.
+
+Our new 3 component vector however, doesn't need any new member variables so we don't need to add any new ones. However, by having a distinct derived data type for our 3 component vector will allow us to use specific procedures that work with it as apposed to the those for the more general vector, as we shall see shortly.
+
+Below we show how to create our new 3 component vector, `t_vector_3`, as an extension of the original general vector derived type. We have also added a new `create_size_3_vector` function to create new 3 component vectors. The `...` in the below code indicates that the body of the type or procedure has been omitted for brevity and is the same as shown in previous code listings. The file name below the cold list will take you to a web page with the full code listing.
+
 <div class="gitfile" markdown="1">
 ~~~
 module m_vector
   implicit none
   
   type t_vector
-    integer:: num_elements
-    real,dimension(:),allocatable:: elements
+    ...
   end type
   
   type,extends(t_vector):: t_vector_3
@@ -26,15 +40,11 @@ module m_vector
   contains
   
   type(t_vector) function create_empty_vector()
-    implicit none
-    create_empty_vector%num_elements=0
+    ...
   end function
   
   type(t_vector) function create_sized_vector(vec_size)
-    implicit none
-    integer,intent(in):: vec_size
-    create_sized_vector%num_elements=vec_size
-    allocate(create_sized_vector%elements(vec_size))
+    ...
   end function
   
   type(t_vector_3) function create_size_3_vector()

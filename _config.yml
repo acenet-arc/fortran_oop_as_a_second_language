@@ -121,5 +121,5 @@ episode_order:
   - interfaces
   - type_bound_procedures
   - destructors
-#  - polymorphism
+  - operators
   
