@@ -65,6 +65,7 @@ end program
 </div>
 
 ~~~
+$ wget https://raw.githubusercontent.com/acenet-arc/fortran_oop_as_a_second_language/gh-pages/code/derived_types.f90
 $ gfortran ./derived_types.f90 -o derived_types
 $ ./derived_types
 ~~~
