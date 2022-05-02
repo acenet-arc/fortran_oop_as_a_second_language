@@ -11,7 +11,9 @@ keypoints:
 ---
 
 <div class="gitfile" markdown="1">
-~~~
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
 module m_vector
   implicit none
   
@@ -19,15 +21,14 @@ module m_vector
     integer:: num_elements
     real,dimension(:),allocatable:: elements
     
-    contains
+    <span class="codehighlight">contains</span>
     
-    procedure:: display
+    <span class="codehighlight">procedure:: display</span>
     
   end type
   
   interface t_vector
-    procedure:: create_empty_vector
-    procedure:: create_sized_vector
+    ...
   end interface
   
   type,extends(t_vector):: t_vector_3
@@ -39,7 +40,7 @@ module m_vector
   
   contains
   
-  subroutine display(vec)
+<span class="codehighlight">  subroutine display(vec)
     implicit none
     class(t_vector),intent(in):: vec
     integer:: i
@@ -50,24 +51,18 @@ module m_vector
     do i=1,vec%num_elements
       print*, "  ",vec%elements(i)
     end do
-  end subroutine
+  end subroutine</span>
   
   type(t_vector) function create_empty_vector()
-    implicit none
-    create_empty_vector%num_elements=0
+    ...
   end function
   
   type(t_vector) function create_sized_vector(vec_size)
-    implicit none
-    integer,intent(in):: vec_size
-    create_sized_vector%num_elements=vec_size
-    allocate(create_sized_vector%elements(vec_size))
+    ...
   end function
   
   type(t_vector_3) function create_size_3_vector()
-    implicit none
-    create_size_3_vector%num_elements=3
-    allocate(create_size_3_vector%elements(3))
+    ...
   end function
   
 end module
@@ -79,40 +74,35 @@ program main
   type(t_vector_3) location
   
   numbers_none=t_vector()
-  call numbers_none%display()
+  <span class="codehighlight">call numbers_none%display()</span>
   
   numbers_some=t_vector(4)
   numbers_some%elements(1)=2
-  call numbers_some%display()
+  <span class="codehighlight">call numbers_some%display()</span>
   
   location=t_vector_3()
   location%elements(1)=1.0
-  call location%display()
+  <span class="codehighlight">call location%display()</span>
   
 end program
-~~~
+</pre></div></div>
 {: .fortran}
 [type_bound_procedures.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/type_bound_procedures.f90)
 </div>
 
 <div class="gitfile" markdown="1">
-~~~
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
 module m_vector
   implicit none
   
   type t_vector
-    integer:: num_elements
-    real,dimension(:),allocatable:: elements
-    
-    contains
-    
-    procedure:: display
-    
+    ...
   end type
   
   interface t_vector
-    procedure:: create_empty_vector
-    procedure:: create_sized_vector
+    ...
   end interface
   
   type,extends(t_vector):: t_vector_3
@@ -129,12 +119,12 @@ module m_vector
     class(t_vector),intent(in):: vec
     integer:: i
     
-    select type (vec)
+<div class="codehighlight">    select type (vec)
       class is (t_vector)
         print*, "t_vector:"
       class is (t_vector_3)
         print*, "t_vector_3:"
-    end select
+    end select</div>
     print*, " num_elements=",vec%num_elements
     print*, " elements="
     do i=1,vec%num_elements
@@ -180,7 +170,7 @@ program main
   call location%display()
   
 end program
-~~~
+</pre></div></div>
 {: .fortran}
 [type_bound_procedures_select_type.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/type_bound_procedures_select_type.f90)
 </div>

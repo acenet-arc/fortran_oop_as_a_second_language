@@ -79,7 +79,9 @@ $ ./derived_types
 
 Creating new vectors is a pretty common thing that we want to do. Lets add some functions to create vectors to reduce the amount of repeated code. Lets create one to make empty vectors, `create_empty_vector` and one to create a vector of a given size allocating the required memory to hold all the elements of the vector, `create_sized_vector`.
 <div class="gitfile" markdown="1">
-~~~
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
 module m_vector
   implicit none
   
@@ -90,17 +92,17 @@ module m_vector
   
   contains
   
-  type(t_vector) function create_empty_vector()
+<div class="codehighlight">  type(t_vector) function create_empty_vector()
     implicit none
     create_empty_vector%num_elements=0
-  end function
+  end function</div>
   
-  type(t_vector) function create_sized_vector(vec_size)
+<div class="codehighlight">  type(t_vector) function create_sized_vector(vec_size)
     implicit none
     integer,intent(in):: vec_size
     create_sized_vector%num_elements=vec_size
     allocate(create_sized_vector%elements(vec_size))
-  end function
+  end function</div>
   
 end module
 
@@ -109,16 +111,16 @@ program main
   implicit none
   type(t_vector) numbers_none,numbers_some
   
-  numbers_none=create_empty_vector()
+  numbers_none=<div class="codehighlight">create_empty_vector()</div>
   print*, "numbers_none%num_elements=",numbers_none%num_elements
   
-  numbers_some=create_sized_vector(4)
+  numbers_some=<div class="codehighlight">create_sized_vector(4)</div>
   numbers_some%elements(1)=2
   print*, "numbers_some%num_elements=",numbers_some%num_elements
   print*, "numbers_some%elements(1)=",numbers_some%elements(1)
   
 end program
-~~~
+</pre></div></div>
 {: .fortran}
 [derived_types_init.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/derived_types_init.f90)
 </div>

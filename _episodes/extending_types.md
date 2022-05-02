@@ -10,7 +10,7 @@ keypoints:
 - "Type extension allows you to build upon an existing derived type to create a new derived type."
 ---
 
-It is pretty common use vectors that represent positions in 3D space, lets create a new derive type which always has only three components. However, it would be really cool if we could reuse our more general vector type to represent one of these specific 3 component vectors. You can do this be using type extension. Type extension allows you to add new members (or not) to an existing type to create a new derived type.
+It is pretty common to use vectors to represent positions in 3D space. Lets create a new derive type which always has only three components. However, it would be really cool if we could reuse our more general vector type to represent one of these specific 3 component vectors. You can do this be using type extension. Type extension allows you to add new members (or not) to an existing type to create a new derived type.
 
 To create a new extended derived type has the following format.
 ~~~
@@ -23,10 +23,12 @@ Here `<parent type name>` is the name of a derived type to be extended, and `<ch
 
 Our new 3 component vector however, doesn't need any new member variables so we don't need to add any new ones. However, by having a distinct derived data type for our 3 component vector will allow us to use specific procedures that work with it as apposed to the those for the more general vector, as we shall see shortly.
 
-Below we show how to create our new 3 component vector, `t_vector_3`, as an extension of the original general vector derived type. We have also added a new `create_size_3_vector` function to create new 3 component vectors. The `...` in the below code indicates that the body of the type or procedure has been omitted for brevity and is the same as shown in previous code listings. The file name below the cold list will take you to a web page with the full code listing.
+Below we show how to create our new 3 component vector, `t_vector_3`, as an extension of the original general vector derived type. We have also added a new `create_size_3_vector` function to create new 3 component vectors. The `...` in the below code indicates that the body of the type or procedure has been omitted for brevity and is the same as shown in previous code listings. The file name below the code listing will take you to a web page with the full code listing.
 
 <div class="gitfile" markdown="1">
-~~~
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
 module m_vector
   implicit none
   
@@ -34,8 +36,8 @@ module m_vector
     ...
   end type
   
-  type,extends(t_vector):: t_vector_3
-  end type
+<div class="codehighlight">  type,extends(t_vector):: t_vector_3
+  end type</div>
   
   contains
   
@@ -47,11 +49,11 @@ module m_vector
     ...
   end function
   
-  type(t_vector_3) function create_size_3_vector()
+<div class="codehighlight">  type(t_vector_3) function create_size_3_vector()
     implicit none
     create_size_3_vector%num_elements=3
     allocate(create_size_3_vector%elements(3))
-  end function
+  end function</div>
   
 end module
 
@@ -69,12 +71,15 @@ program main
   print*, "numbers_some%num_elements=",numbers_some%num_elements
   print*, "numbers_some%elements(1)=",numbers_some%elements(1)
   
-  location=create_size_3_vector()
+<div class="codehighlight">  location=create_size_3_vector()
   location%elements(1)=1.0
-  print*, "location%elements(1)=",location%elements(1)
+  print*, "location%elements(1)=",location%elements(1)</div>
   
 end program
-~~~
+</pre>
+</div>
+</div>
+
 {: .fortran}
 [type_extension.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/type_extension.f90)
 </div>

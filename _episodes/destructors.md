@@ -11,7 +11,9 @@ keypoints:
 ---
 
 <div class="gitfile" markdown="1">
-~~~
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
 module m_vector
   implicit none
   
@@ -22,20 +24,19 @@ module m_vector
     contains
     
     procedure:: display
-    final:: destructor_vector
+    <div class="codehighlight">final:: destructor_vector</div>
     
   end type
   
   interface t_vector
-    procedure:: create_empty_vector
-    procedure:: create_sized_vector
+    ...
   end interface
   
   type,extends(t_vector):: t_vector_3
     
-    contains
+    <div class="codehighlight">contains</div>
     
-    final:: destructor_vector_3
+    <div class="codehighlight">final:: destructor_vector_3</div>
     
   end type
   
@@ -45,58 +46,38 @@ module m_vector
   
   contains
   
-  subroutine destructor_vector(self)
+<div class="codehighlight">  subroutine destructor_vector(self)
     implicit none
     type(t_vector):: self
     
     if (allocated(self%elements)) then
       deallocate(self%elements)
     endif
-  end subroutine
+  end subroutine</div>
   
-  subroutine destructor_vector_3(self)
+<div class="codehighlight">  subroutine destructor_vector_3(self)
     implicit none
     type(t_vector_3):: self
     
     if (allocated(self%elements)) then
       deallocate(self%elements)
     endif
-  end subroutine
+  end subroutine</div>
   
   subroutine display(vec)
-    implicit none
-    class(t_vector),intent(in):: vec
-    integer:: i
-    
-    select type (vec)
-      class is (t_vector)
-        print*, "t_vector:"
-      class is (t_vector_3)
-        print*, "t_vector_3:"
-    end select
-    print*, " num_elements=",vec%num_elements
-    print*, " elements="
-    do i=1,vec%num_elements
-      print*, "  ",vec%elements(i)
-    end do
+    ...
   end subroutine
   
   type(t_vector) function create_empty_vector()
-    implicit none
-    create_empty_vector%num_elements=0
+    ...
   end function
   
   type(t_vector) function create_sized_vector(vec_size)
-    implicit none
-    integer,intent(in):: vec_size
-    create_sized_vector%num_elements=vec_size
-    allocate(create_sized_vector%elements(vec_size))
+    ...
   end function
   
   type(t_vector_3) function create_size_3_vector()
-    implicit none
-    create_size_3_vector%num_elements=3
-    allocate(create_size_3_vector%elements(3))
+    ...
   end function
   
 end module
@@ -119,7 +100,7 @@ program main
   call location%display()
   
 end program
-~~~
+</pre></div></div>
 {: .fortran}
 [destructor.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/destructor.f90)
 </div>
