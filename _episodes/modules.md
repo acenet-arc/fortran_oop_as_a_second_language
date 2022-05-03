@@ -117,7 +117,7 @@ program main
   call print_values()
 end program
 </pre></div></div>
-[module_access_none.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access_none.f90)
+[modules_access_none.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/modules_access_none.f90)
 </div>
 If you try to compile this you will get the following errors:
 ~~~
@@ -182,7 +182,7 @@ program main
   call print_values()
 end program
 </pre></div></div>
-[module_access_some.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access_some.f90)
+[modules_access_some.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/modules_access_some.f90)
 </div>
 This version will compile and run and will print out the values of the two private variables of the module, however they won't have been initialized to anything.
 
