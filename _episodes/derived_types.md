@@ -4,9 +4,11 @@ teaching: 10
 exercises: 0
 questions:
 - "What is a derived type?"
+- "How do you use derived types?"
+- "Can access to individual components of a derive type be controlled?"
 objectives:
-- "Know how to create a derive type."
-- "Know how to access members of a derive type."
+- "Create a derive type."
+- "Access members of a derive type."
 keypoints:
 - "A derived type allows you to package together a number of basic types that can then be thought of collectively as one new derived type."
 - "Access modifiers can be applied within derived types as well as within modules"

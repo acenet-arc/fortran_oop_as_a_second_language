@@ -4,10 +4,12 @@ teaching: 15
 exercises: 0
 questions:
 - "What are modules?"
+- "Can I control what can be accessed from outside a module?"
 objectives:
 - "Create a module."
 keypoints:
 - "Modules are used to package variables, types, and procedures together."
+- "Access to variables and procedures within the module can be controlled with the private and public access modifiers."
 ---
 
 Modules allow procedures (functions and subroutines) and variables to be grouped together as well as some other constructs we will talk about later.
@@ -115,7 +117,7 @@ program main
   call print_values()
 end program
 </pre></div></div>
-[module_access.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access.f90)
+[module_access_none.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access_none.f90)
 </div>
 If you try to compile this you will get the following errors:
 ~~~
@@ -180,7 +182,7 @@ program main
   call print_values()
 end program
 </pre></div></div>
-[module_access.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access.f90)
+[module_access_some.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access_some.f90)
 </div>
 This version will compile and run and will print out the values of the two private variables of the module, however they won't have been initialized to anything.
 
