@@ -9,6 +9,7 @@ objectives:
 - "Know how to access members of a derive type."
 keypoints:
 - "A derived type allows you to package together a number of basic types that can then be thought of collectively as one new derived type."
+- "Access modifiers can be applied within derived types as well as within modules"
 ---
 
 While modules allow you to package variables together in such a way that you can directly refer to those variables, as we saw previously, derived types allow you to package together variables in such a way as to form a new compound variable. With this new compound variable you can refer to it as a group rather than only by the individual components.
@@ -77,7 +78,7 @@ $ ./derived_types
 ~~~
 {: .output}
 
-
+### Creating new objects
 Creating new vectors is a pretty common thing that we want to do. Lets add some functions to create vectors to reduce the amount of repeated code. Lets create one to make empty vectors, `create_empty_vector` and one to create a vector of a given size allocating the required memory to hold all the elements of the vector, `create_sized_vector`.
 <div class="gitfile" markdown="1">
 <div class="language-plaintext fortran highlighter-rouge">
@@ -122,9 +123,25 @@ program main
   
 end program
 </pre></div></div>
-{: .fortran}
 [derived_types_init.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/derived_types_init.f90)
 </div>
+
+### Access modifiers
+Access modifiers can be applied to derived types in a similar way to modules. Here is an example.
+
+~~~
+module m_vector
+  implicit none
+  
+  type t_vector
+    integer,private:: num_elements
+    real,dimension(:),allocatable:: elements
+  end type
+  ...
+end module
+~~~
+{: .fortran}
+In this case the member variable `num_elements` could no longer be accessed from outside the module, while the `elements` member variable can be.
 
 {% include links.md %}
 

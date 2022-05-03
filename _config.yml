@@ -122,4 +122,5 @@ episode_order:
   - type_bound_procedures
   - destructors
   - operators
+  - wrapping_up
   

@@ -1,6 +1,6 @@
 ---
 title: "Modules"
-teaching: 10
+teaching: 15
 exercises: 0
 questions:
 - "What are modules?"
@@ -34,7 +34,9 @@ Modules are not strictly an object oriented only Fortran feature but are very ha
 Here is an example of a Fortran module.
 
 <div class="gitfile" markdown="1">
-~~~
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
 module m_common
   implicit none
   
@@ -59,8 +61,7 @@ program main
   value_two=2
   call print_values()
 end program
-~~~
-{: .fortran}
+</pre></div></div>
 [modules.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/modules.f90)
 </div>
 In the program `main`, to be able to accesses the variables and procedures defined in the module you must indicate you wish to be able to access them with the `use` keyword followed by the module name you would like your program or procedure to have access to.
@@ -79,5 +80,110 @@ $ ./modules
 ~~~
 {: .output}
 
+### Access Modifiers
+It is possible to control how variables and procedures declared in a module are accessed from outside the module. This can be done either on module wide basis or for specific procedures and variables. If you specify no access modifiers everything will be accessible from outside the module.
+
+There are two access modifiers:
+* `private` indicates that that procedure or variable can only be accessed within the module
+* `public` indicates it can be accessed from outside the module.
+
+<div class="gitfile" markdown="1">
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
+module m_common
+  implicit none
+  <div class="codehighlight">private</div>
+  
+  integer:: value_one
+  real:: value_two
+  
+  contains
+  
+  subroutine print_values()
+    ...
+  end subroutine
+  
+end module
+
+program main
+  use m_common
+  implicit none
+  
+  value_one=1
+  value_two=2
+  call print_values()
+end program
+</pre></div></div>
+[module_access.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access.f90)
+</div>
+If you try to compile this you will get the following errors:
+~~~
+$ wget https://raw.githubusercontent.com/acenet-arc/fortran_oop_as_a_second_language/gh-pages/code/modules_access_none.f90
+$ gfortran modules_access_none.f90 -o modules_access_none
+$ ./modules_access_none
+~~~
+{: .bash}
+
+~~~
+modules_access_none.f90:22:11:
+
+   22 |   value_one=1
+      |           1
+Error: Symbol ‘value_one’ at (1) has no IMPLICIT type
+modules_access_none.f90:23:11:
+
+   23 |   value_two=2
+      |           1
+Error: Symbol ‘value_two’ at (1) has no IMPLICIT type
+~~~
+{: .output}
+
+Indicating that the variables `value_one` and `value_two` can not be accessed from outside the module. If the reference to `value_one` and `value_two` are commented out then I get an error during the linking process like so:
+~~~
+/usr/bin/ld: /tmp/cc5TwvXi.o: in function `MAIN__':
+modules_access_none.f90:(.text+0x118): undefined reference to `print_values_'
+collect2: error: ld returned 1 exit status
+
+~~~
+{: .output}
+Indicating that the subroutine `print_values` can not be accessed either.
+
+As mentioned individual variables and procedures can be selectively made either `private` or `public`.
+
+<div class="gitfile" markdown="1">
+<div class="language-plaintext fortran highlighter-rouge">
+<div class="highlight">
+<pre class="highlight">
+module m_common
+  implicit none
+  private
+  
+  integer:: value_one
+  real:: value_two
+  
+  <div class="codehighlight">public:: print_values</div>
+  contains
+  
+  subroutine print_values()
+    ...
+  end subroutine
+  
+end module
+
+program main
+  use m_common
+  implicit none
+  
+  !value_one=1
+  !value_two=2
+  call print_values()
+end program
+</pre></div></div>
+[module_access.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/module_access.f90)
+</div>
+This version will compile and run and will print out the values of the two private variables of the module, however they won't have been initialized to anything.
+
+Using access modifiers allows certain data and procedures to be inaccessible from the user of these modules. Restricting access to data and procedures is a common practise in object oriented design.
 {% include links.md %}
 

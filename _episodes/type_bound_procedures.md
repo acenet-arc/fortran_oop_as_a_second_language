@@ -11,7 +11,7 @@ keypoints:
 ---
 We have been printing out parts of our vectors to see how the changes have been making affect them. It would be really nice to have an easy way to see a vector without having to explicitly print out the components of that vector we wish to seen every time.
 
-We can do this by creating a new subroutine `display`. We could do this in the usual way show below.
+We can do this by creating a new subroutine `display`. We could do this in the usual way shown below.
 
 ~~~
 subroutine display(vec)
@@ -30,7 +30,7 @@ end program
 {: .fortran}
 However, in object oriented languages it is common to think of procedures as part of the object or type and have the procedure be called from the object. So instead of calling a procedure and explicitly passing in the object like `call display(vec)` as above the different syntax using the `%` operator `call vec%display()` is more in line with the object oriented way of thinking.
 
-The `%` style of calling a subroutine works exactly the same as the usual way except that the first argument in the subroutine is automatically replaced by the object to the left of the `%` operator. This type of procedure is called a **type bound procedure**.
+The `%` style of calling a subroutine works exactly the same as the usual way except that the first argument in the subroutine is automatically replaced by the object to the left of the `%` operator. This type of procedure is called a **type bound procedure**. In other languages this might be called a **member function** as it is a member of the type like the component variables are members.
 
 To create a type bound procedure you must specify that the type *contains* that procedure. In the below code, notice how we have specified that the `display` subroutine is *contained* in the derived type.
 
@@ -114,7 +114,7 @@ end program
 [type_bound_procedures.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/type_bound_procedures.f90)
 </div>
 
-Notice that in the `display` subroutine we declare the `vec` object as `class(t_vector):: vec`, rather than the usual `type(t_vector):: vec`. This is to indicate that `vec` could be either a `t_vector` or any derived type which extends this derived type, this would include our `t_vector_3` derived type.
+Notice that in the `display` subroutine we declare the `vec` object as `class(t_vector):: vec`, rather than the usual `type(t_vector):: vec`. This is to indicate that `vec` could be either a `t_vector` or any derived type which extends this derived type, this would include our `t_vector_3` derived type. Allowing
 
 This is a pretty neat trick for a statically typed language like Fortran. We can pass in different derived types to the procedure in the same argument. This means that this `display` function will actually work for both our `t_vector` and our `t_vector_3` derived types.
 
