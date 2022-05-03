@@ -116,29 +116,27 @@ end module
 program main
   use m_vector
   implicit none
-  type(t_vector) numbers_none,numbers_some,numbers_less,numbers_all
-  type(t_vector_3) location
-  
-  numbers_none=t_vector()
-  call numbers_none%display()
+  type(t_vector) numbers_some,numbers_less,numbers_all
   
   numbers_some=t_vector(4)
   numbers_some%elements(1)=1
   numbers_some%elements(2)=2
   numbers_some%elements(3)=3
   numbers_some%elements(4)=4
+  print*, ""
+  print*, "numbers_some"
   call numbers_some%display()
-  
-  location=t_vector_3()
-  location%elements(1)=1.0
-  call location%display()
   
   numbers_less=t_vector(2)
   numbers_less%elements(1)=5
   numbers_less%elements(2)=6
+  print*, ""
+  print*, "numbers_less"
   call numbers_less%display()
   
   numbers_all=numbers_some+numbers_less
+  print*, ""
+  print*, "numbers_all"
   call numbers_all%display()
   
 end program
