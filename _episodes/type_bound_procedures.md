@@ -1,6 +1,6 @@
 ---
 title: "Type Bound Procedures"
-teaching: 10
+teaching: 15
 exercises: 0
 questions:
 - "What is a type bound procedure?"
@@ -114,9 +114,9 @@ end program
 [type_bound_procedures.f90](https://github.com/acenet-arc/fortran_oop_as_a_second_language/blob/gh-pages/code/type_bound_procedures.f90)
 </div>
 
-Notice that in the `display` subroutine we declare the `vec` object as `class(t_vector):: vec`, rather than the usual `type(t_vector):: vec`. This is to indicate that `vec` could be either a `t_vector` or any derived type which extends this derived type, this would include our `t_vector_3` derived type. Allowing
+Notice that in the `display` subroutine we declare the `vec` object as `class(t_vector):: vec`, rather than the usual `type(t_vector):: vec`. This is to indicate that `vec` could be either a `t_vector` or any derived type which extends this derived type, this would include our `t_vector_3` derived type. Allowing any derived types which extended the original **base** type to be passed into the subroutine using the same argument. This argument can then be treated the same regardless of what type it is since it was derived from a common base type.
 
-This is a pretty neat trick for a statically typed language like Fortran. We can pass in different derived types to the procedure in the same argument. This means that this `display` function will actually work for both our `t_vector` and our `t_vector_3` derived types.
+This is a pretty neat trick for a statically typed language like Fortran. We can pass in different derived types to the procedure in the same argument. This means that the `display` subroutine will actually work for both our `t_vector` and our `t_vector_3` derived types as `t_vector_3` must contain all the same member variables as `t_vector` and possibly more. The ability to operate on different types in a similar way is often referred to as **polymorphism** in object oriented programming languages.
 
 Lets see how this new `display` subroutine works.
 ~~~
@@ -144,7 +144,9 @@ $ ./type_bound_procedures
       0.00000000
 ~~~
 {: .output}
-As you can see, it worked just fine on both our `t_vector` objects `numbers_none` and `numbers_some` and our `t_vector_3` object `location`. However, it is still printing out that the object is a `t_vector` even when it is a `t_vector_3`. It would be nice if we could have it print out `t_vector_3` when it is a `t_vector_3` object and print out `t_vector` when it is a `t_vector_3` object. It turns out there is a way to do this using the **`select type`** construct. It works very much like the `select case` construct except that it works with types of objects instead of values of a variable.
+As you can see, it worked just fine on both our `t_vector` objects `numbers_none` and `numbers_some` and our `t_vector_3` object `location`.
+
+However, it is still printing out that the object is a `t_vector` even when it is a `t_vector_3`. It would be nice if we could have it print out `t_vector_3` when it is a `t_vector_3` object and print out `t_vector` when it is a `t_vector` object. It turns out there is a way to do this using the **`select type`** construct. It works very much like the `select case` construct except that it works with object types instead of values of a variable.
 
 <div class="gitfile" markdown="1">
 <div class="language-plaintext fortran highlighter-rouge">

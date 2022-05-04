@@ -1,6 +1,6 @@
 ---
 title: "Derived Types"
-teaching: 10
+teaching: 15
 exercises: 0
 questions:
 - "What is a derived type?"

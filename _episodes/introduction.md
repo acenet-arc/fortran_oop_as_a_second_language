@@ -3,7 +3,7 @@ title: "Introduction"
 teaching: 5
 exercises: 0
 questions:
-- ""
+- "What features does Fortran include to support object oriented design?"
 objectives:
 - ""
 keypoints:
@@ -19,9 +19,9 @@ Many features have been added to Fortran over the years which has allowed Fortra
 * Fortran 2003 introduced:
   * type extension
   * type-bound procedures
-  * abstract data types
+  * abstract data types *(not going to get to this)*
   
-In this part of the workshop we will briefly introduce these features and their roll in object oriented programming in Fortran.
+In this part of the workshop we will briefly introduce these features and their role in object oriented programming in Fortran.
 
 {% include links.md %}
 
