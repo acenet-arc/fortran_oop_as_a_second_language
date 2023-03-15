@@ -19,7 +19,7 @@ program main
   use m_common
   implicit none
   
-  !value_one=1
-  !value_two=2
+  value_one=1
+  value_two=2
   call print_values()
 end program
