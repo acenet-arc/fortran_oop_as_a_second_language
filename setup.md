@@ -29,7 +29,7 @@ If you are a **Linux** user running Ubuntu, you should be able to press the `ctr
 
 # Test your ssh connection
 
-### If using a CC account
+### If using an Alliance account
 If you are using your Alliance account make sure you can connect to an Alliance cluster. To connect to the Graham cluster for example you would use the command below.
 ~~~
 $ ssh graham.computecanada.ca
