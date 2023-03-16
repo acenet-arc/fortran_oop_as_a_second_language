@@ -1,13 +1,15 @@
 ---
 title: "Type Bound Procedures"
-teaching: 15
-exercises: 0
+teaching: 10
+exercises: 5
 questions:
 - "What is a type bound procedure?"
 objectives:
 - "How do you create a type bound procedure."
 keypoints:
 - "A type bound procedure allows you to associate a procedure with a type."
+- "Extended types can use these type bound procedures by using the **class** keyword rather than the type keyword."
+- "**select type** allows different code paths to execute based on the object's type similar to select case."
 ---
 We have been printing out parts of our vectors to see how the changes have been making affect them. It would be really nice to have an easy way to see a vector without having to explicitly print out the components of that vector we wish to seen every time.
 
@@ -32,7 +34,13 @@ However, in object oriented languages it is common to think of procedures as par
 
 The `%` style of calling a subroutine works exactly the same as the usual way except that the first argument in the subroutine is automatically replaced by the object to the left of the `%` operator. This type of procedure is called a **type bound procedure**. In other languages this might be called a **member function** as it is a member of the type like the component variables are members.
 
-To create a type bound procedure you must specify that the type *contains* that procedure. In the below code, notice how we have specified that the `display` subroutine is *contained* in the derived type.
+To create a type bound procedure you must specify that the type *contains* that procedure. Lets add the `display` type bound procedure now.
+
+~~~
+$ cp interface_blocks.f90 type_bound_procedures.f90
+$ nano type_bound_procedures.f90
+~~~
+{: .bash}
 
 <div class="gitfile" markdown="1">
 <div class="language-plaintext fortran highlighter-rouge">
@@ -120,7 +128,6 @@ This is a pretty neat trick for a statically typed language like Fortran. We can
 
 Lets see how this new `display` subroutine works.
 ~~~
-$ wget https://raw.githubusercontent.com/acenet-arc/fortran_oop_as_a_second_language/gh-pages/code/type_bound_procedures.f90
 $ gfortran type_bound_procedures.f90 -o type_bound_procedures
 $ ./type_bound_procedures
 ~~~
@@ -148,6 +155,11 @@ As you can see, it worked just fine on both our `t_vector` objects `numbers_none
 
 However, it is still printing out that the object is a `t_vector` even when it is a `t_vector_3`. It would be nice if we could have it print out `t_vector_3` when it is a `t_vector_3` object and print out `t_vector` when it is a `t_vector` object. It turns out there is a way to do this using the **`select type`** construct. It works very much like the `select case` construct except that it works with object types instead of values of a variable.
 
+~~~
+$ cp type_bound_procedures.f90 type_bound_procedures_select_type.f90
+$ nano type_bound_procedures_select_type.f90
+~~~
+{: .bash}
 <div class="gitfile" markdown="1">
 <div class="language-plaintext fortran highlighter-rouge">
 <div class="highlight">
@@ -234,33 +246,112 @@ end program
 </div>
 
 ~~~
-$ wget https://raw.githubusercontent.com/acenet-arc/fortran_oop_as_a_second_language/gh-pages/code/type_bound_procedures_select_type.f90
 $ gfortran type_bound_procedures_select_type.f90 -o type_bound_procedures_select_type
 $ ./type_bound_procedures_select_type
 ~~~
 {: .bash}
-
 ~~~
-t_vector:
-  num_elements=           0
-  elements=
  t_vector:
-  num_elements=           4
-  elements=
-      2.00000000
-      0.00000000
-      0.00000000
-      0.00000000
+   num_elements=           0
+   elements=
+ t_vector:
+   num_elements=           4
+   elements=
+     2.00000000    
+     0.00000000    
+     0.00000000    
+     0.00000000    
  t_vector_3:
-  num_elements=           3
-  elements=
-      1.00000000
-      0.00000000
-      0.00000000
+   num_elements=           3
+   elements=
+     1.00000000    
+     0.00000000    
+     0.00000000    
 ~~~
 {: .output}
 
 As you can see, it is now correctly outputting `t_vector_3` when the object is of that type.
+
+> ## What is passed to a type bound procedure?
+> Given the following program
+> ~~~
+> module m_A
+>   implicit none
+> 
+>   type t_B
+>     integer:: foo
+>     contains
+>     procedure:: display
+>   end type
+> 
+>   contains
+> 
+>   subroutine display(b)
+>     implicit none
+>     class(t_B),intent(in):: b
+>     print*, b%foo
+>   end subroutine
+> 
+> end module
+> 
+> program main
+>   use m_A
+>   implicit none
+>   type(t_B) a
+>   type(t_B) b
+> 
+>   a%foo=1
+>   b%foo=2
+>   call b%display()
+>   call a%display()
+> 
+> end program
+> ~~~
+> {: .fortran}
+> What is the output when compiled and run?
+> <ol type="a">
+> <li markdown="1">
+> ~~~
+> 1
+> 1
+> ~~~
+> {: .output}
+> </li>
+> <li markdown="1">
+> ~~~
+> 2
+> 2
+> ~~~
+> {: .output}
+> </li>
+> <li markdown="1">
+> ~~~
+> 1
+> 2
+> ~~~
+> {: .output}
+> </li>
+> <li markdown="1">
+> ~~~
+> 2
+> 1
+> ~~~
+> {: .output}
+> </li>
+> </ol>
+> > ## Solution
+> > <ol type="a">
+> > <li markdown="1">**NO**: the objects `a` and `b` each have separate storage for their own values of `foo`
+> > </li>
+> > <li markdown="1">**NO**: same reason as a.
+> > </li>
+> > <li markdown="1">**NO**: not quite, note the order the functions are called.
+> > </li>
+> > <li markdown="1">**YES**: when `call b%display()` is executed `b%foo` in the `display` subroutine takes on the value of 2 and is printed out. When `call a%display` is executed `b%foo` in the `display` subroutine takes on the value of ` and is printed out.
+> > </li>
+> > </ol>
+> {: .solution}
+{: .challenge}
 
 {% include links.md %}
 
